@@ -1,0 +1,130 @@
+#include <Servo.h>
+
+Servo servo1;
+Servo servo2;
+Servo servo3;
+Servo servo4;
+
+int s1pos=90;
+int s2pos=90;
+int s3pos=40;
+int s4pos=120;
+
+String action;
+
+void setup() {
+
+  Serial.begin(115200);
+  Serial.println("ready to recieve");
+  servo1.attach(3);
+  servo2.attach(5);
+  servo3.attach(6);
+  servo4.attach(9);
+  
+  servo1.write(s1pos);             
+  servo2.write(s2pos);    
+  servo3.write(s3pos);
+  servo4.write(s4pos);// put your setup code here, to run once:
+
+  delay(2000);
+}
+
+void loop() {
+
+  if(Serial.available()>0)
+  {
+  action=Serial.readStringUntil('\n');
+  
+  if(action.indexOf('1')>0)
+  {
+    Serial.println(s1pos);
+    if(s1pos<150)
+    { int oldpos=s1pos;
+      s1pos+=70;
+      for (int pos = oldpos; pos <= s1pos; pos += 1) { 
+      servo1.write(pos);             
+      delay(10);                          }
+    }
+    delay(100);
+  }
+  else if(action.indexOf('2')>0)
+  {
+    Serial.println(s2pos);
+    if(s2pos<130)
+    { int oldpos=s2pos;
+      s2pos+=50;
+      for (int pos = oldpos; pos <= s2pos; pos += 1) { 
+      servo2.write(pos);             
+      delay(10);                          }
+    }
+    delay(100);
+  }
+  else if(action.indexOf('3')>0)
+  {
+    Serial.println(s3pos);
+    if(s3pos<70)
+    { int oldpos=s3pos;
+      s3pos+=40;
+      for (int pos = oldpos; pos <= s3pos; pos += 1) { 
+      servo3.write(pos);             
+      delay(10);                          }
+    }
+    delay(100);
+  }
+  else if(action.indexOf('4')>0)
+  {
+    Serial.println(s4pos);
+    if(s4pos<80)
+    { s4pos+=55;
+      servo4.write(s4pos);
+    }
+    delay(100);
+  }
+  else if(action.indexOf('5')>0)
+  {
+    Serial.println(s1pos);
+    if(s1pos>30)
+    { int oldpos=s1pos;
+      s1pos-=70;
+      for (int pos = oldpos; pos >= s1pos; pos -= 1) { 
+      servo1.write(pos);             
+      delay(10);                                     }
+    }
+    delay(100);
+  }
+  else if(action.indexOf('6')>0)
+  {
+    Serial.println(s2pos);
+    if(s2pos>50)
+    { int oldpos=s2pos;
+      s2pos-=50;
+      for (int pos = oldpos; pos >= s2pos; pos -= 1) { 
+      servo2.write(pos);             
+      delay(10);                                     }
+    }
+    delay(100);
+  }
+  else if(action.indexOf('7')>0)
+  {
+    Serial.println(s3pos);
+    if(s3pos>10)
+    { int oldpos=s3pos;
+      s3pos-=40;
+      for (int pos = oldpos; pos >= s3pos; pos -= 1) { 
+      servo3.write(pos);             
+      delay(10);                                     }
+    }
+    delay(100);
+  }
+  else if(action.indexOf('8')>0)
+  {
+    Serial.println(s4pos);
+    if(s4pos>110)
+    { s4pos-=50;
+      servo4.write(s4pos);
+    }
+    delay(100);
+  }
+  } 
+  delay(1000);
+}
